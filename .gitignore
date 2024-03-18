@@ -3,3 +3,5 @@
 bot/.env
 web/.env
 lib/*
+.prettierrc.json
+web/dist

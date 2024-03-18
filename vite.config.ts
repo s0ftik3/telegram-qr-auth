@@ -13,4 +13,7 @@ export default defineConfig({
             '~': resolve(__dirname, 'web/src'),
         },
     },
+    preview: {
+        port: 4177,
+    },
 })
