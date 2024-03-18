@@ -30,6 +30,10 @@ export const handleStart = async ctx => {
         browserData.user_agent
     )
 
+    if (location.latitude && location.longitude) {
+        await ctx.replyWithLocation(location.latitude, location.longitude)
+    }
+
     await ctx.replyWithHTML(
         `<b>New sign in request.</b>\n\nApprove sign in request from ${dayjs().format(
             'DD/MM/YYYY HH:mm:ss'

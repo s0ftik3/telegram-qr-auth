@@ -24,7 +24,7 @@ export class Socket {
                     this.redis.set(
                         socket.id,
                         JSON.stringify({
-                            ip_address: socket.request.connection.remoteAddress,
+                            ip_address: socket.handshake.headers["x-forwarded-for"]?.split(",")?.[0],
                             user_agent: socket.request.headers['user-agent'],
                         }),
                         {
