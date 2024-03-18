@@ -1,0 +1,26 @@
+{
+    "exclude": ["**/temp/", "**/.*/", "**/lib", "**/node_modules"],
+    "compilerOptions": {
+        "strict": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "jsx": "preserve",
+        "jsxImportSource": "solid-js",
+        "composite": true,
+        "isolatedModules": false,
+        "declaration": true,
+        "declarationMap": true,
+        "allowJs": true,
+        "types": ["vite/client"],
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./web/src/*"]
+        }
+    },
+    "include": ["web", "src"],
+    "references": []
+}

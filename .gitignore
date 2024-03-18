@@ -1,0 +1,5 @@
+/node_modules
+.idea
+bot/.env
+web/.env
+lib/*
