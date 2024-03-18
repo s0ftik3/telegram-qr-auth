@@ -20,19 +20,24 @@ export class Socket {
 
         io.on('connection', socket => {
             socket.on('qr-auth-data', payload => {
-                this.redis.set(
-                    socket.id,
-                    JSON.stringify({
-                        ip_address: socket.request.connection.remoteAddress,
-                        user_agent: socket.request.headers['user-agent'],
-                    }),
-                    {
-                        EX: Math.round(
-                            (payload.valid_until - Date.now()) / 1000
-                        ),
-                        NX: true,
-                    }
-                )
+                try {
+                    this.redis.set(
+                        socket.id,
+                        JSON.stringify({
+                            ip_address: socket.request.connection.remoteAddress,
+                            user_agent: socket.request.headers['user-agent'],
+                        }),
+                        {
+                            EX: Math.round(
+                                (payload.valid_until - Date.now()) / 1000
+                            ),
+                            NX: true,
+                        }
+                    )
+                } catch (e) {
+                    console.error('Error occured with payload ', payload)
+                    console.error(e)
+                }
             })
         })
 

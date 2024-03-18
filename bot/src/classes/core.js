@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { createClient as createRedisClient } from 'redis'
 import { Bot } from './bot.js'
 import { Socket } from './socket.js'
