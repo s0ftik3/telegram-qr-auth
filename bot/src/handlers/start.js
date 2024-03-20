@@ -8,7 +8,12 @@ import dayjs from '../utils/dayjs.js'
  */
 export const handleStart = async ctx => {
     if (!ctx.startPayload) {
-        await ctx.reply('Hello, World!')
+        await ctx.reply(
+            'Try Telegram bot QR-code authentication at https://qr.vychs.com/',
+            {
+                disable_web_page_preview: true,
+            }
+        )
         return
     }
 
@@ -21,7 +26,9 @@ export const handleStart = async ctx => {
         !browserData ||
         !Object.keys(browserData).length
     ) {
-        await ctx.reply('This QR-code is expired. Please scan the updated one.')
+        await ctx.reply(
+            'This QR-code has expired. Please scan the updated one.'
+        )
         return
     }
 
@@ -35,9 +42,9 @@ export const handleStart = async ctx => {
     }
 
     await ctx.replyWithHTML(
-        `<b>New sign in request.</b>\n\nApprove sign in request from ${dayjs().format(
-            'DD/MM/YYYY HH:mm:ss'
-        )}.\n\n<b>Device:</b> ${
+        `<b>New sign in request.</b>\n\nWe detected a login into your account on ${dayjs
+            .utc()
+            .format('DD/MM/YYYY [at] HH:mm:ss [UTC]')}.\n\n<b>Device:</b> ${
             device
                 ? `${device.brand} ${device.os} ${device.os_version}`
                 : 'unknown'

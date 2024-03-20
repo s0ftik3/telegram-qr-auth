@@ -21,21 +21,25 @@ export class Socket {
         io.on('connection', socket => {
             socket.on('qr-auth-data', payload => {
                 try {
+                    const expiresAt = Math.round(
+                        (payload.valid_until - Date.now()) / 1000
+                    )
                     this.redis.set(
                         socket.id,
                         JSON.stringify({
-                            ip_address: socket.handshake.headers["x-forwarded-for"]?.split(",")?.[0],
+                            ip_address:
+                                socket.handshake.headers[
+                                    'x-forwarded-for'
+                                ]?.split(',')?.[0],
                             user_agent: socket.request.headers['user-agent'],
                         }),
                         {
-                            EX: Math.round(
-                                (payload.valid_until - Date.now()) / 1000
-                            ),
+                            EX: expiresAt > 0 ? expiresAt : 1,
                             NX: true,
                         }
                     )
                 } catch (e) {
-                    console.error('Error occured with payload ', payload)
+                    console.error('Error occurred with payload ', payload)
                     console.error(e)
                 }
             })

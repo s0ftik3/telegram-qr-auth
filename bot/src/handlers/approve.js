@@ -38,7 +38,7 @@ export const handleApprove = async ctx => {
         )
     } else {
         await ctx.editMessageText(
-            'This sign in request is expired or client closed the tab it was related to.'
+            'This sign in request has expired or client closed the tab it was related to.'
         )
     }
 }
