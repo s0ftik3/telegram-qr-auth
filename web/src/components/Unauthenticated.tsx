@@ -9,7 +9,7 @@ import { LoadingSpinner } from './Spinner'
 
 const QR_CODE_TTL = 30 // seconds
 
-export const NotAuthenticated = () => {
+export const Unauthenticated = () => {
     const [qrRef, setQrRef] = createSignal<HTMLElement>()
     const [qrCode, setQrCode] = createSignal<QRCodeStyling>()
     const [socket, setSocket] = createSignal<Socket>()
@@ -57,7 +57,9 @@ export const NotAuthenticated = () => {
             qrCode()?.append(qrRef())
         })
 
-        socket.on('auth-approve', user => {
+        socket.on('auth-approve', async user => {
+            setShowLoader(true)
+            await sleep(300) // emulate sign in process
             localStorage.setItem('user', JSON.stringify(user))
             window.location.href = '/'
         })
@@ -96,7 +98,7 @@ export const NotAuthenticated = () => {
                 <Row>
                     <Col>
                         <p class="text-muted">
-                            Update in <mark>{timeoutCounter()}</mark> sec.
+                            Reset in <mark>{timeoutCounter()}s</mark>
                         </p>
                     </Col>
                 </Row>
