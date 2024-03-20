@@ -15,6 +15,7 @@ export const Unauthenticated = () => {
     const [socket, setSocket] = createSignal<Socket>()
     const [socketId, setSocketId] = createSignal<null | string>()
     const [showLoader, setShowLoader] = createSignal(true)
+    const [showSignInProcess, setShowSignInProcess] = createSignal(false)
     const [timeoutCounter, setTimeoutCounter] = createSignal(0)
     const [isQrBlurred, setIsQrBlurred] = createSignal(false)
 
@@ -58,6 +59,7 @@ export const Unauthenticated = () => {
         })
 
         socket.on('auth-approve', async user => {
+            setShowSignInProcess(true)
             setShowLoader(true)
             await sleep(300) // emulate sign in process
             localStorage.setItem('user', JSON.stringify(user))
@@ -84,22 +86,32 @@ export const Unauthenticated = () => {
             <Stack gap={3}>
                 <Row>
                     <Col>
-                        <div
-                            ref={setQrRef}
-                            class={
-                                'qr-code' + (isQrBlurred() ? ' blurred' : '')
-                            }
-                        ></div>
-                        <Show when={showLoader()}>
-                            <LoadingSpinner />
+                        <Show
+                            when={!showLoader()}
+                            fallback={<LoadingSpinner />}
+                        >
+                            <div
+                                ref={setQrRef}
+                                class={
+                                    'qr-code' +
+                                    (isQrBlurred() ? ' blurred' : '')
+                                }
+                            ></div>
                         </Show>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <p class="text-muted">
-                            Reset in <mark>{timeoutCounter()}s</mark>
-                        </p>
+                        <Show
+                            when={showSignInProcess()}
+                            fallback={
+                                <p class="text-muted">
+                                    Reset in <mark>{timeoutCounter()}s</mark>
+                                </p>
+                            }
+                        >
+                            <p class="text-muted">Signing in...</p>
+                        </Show>
                     </Col>
                 </Row>
             </Stack>
