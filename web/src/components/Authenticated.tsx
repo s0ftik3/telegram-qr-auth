@@ -65,7 +65,19 @@ export const Authenticated = ({ user }: { user: any }) => {
                                         <td
                                             class={user.username ? '' : 'empty'}
                                         >
-                                            {user.username || 'none'}
+                                            {user.username ? (
+                                                <a
+                                                    class="username"
+                                                    href={
+                                                        'tg://resolve?domain=' +
+                                                        user.username
+                                                    }
+                                                >
+                                                    {user.username}
+                                                </a>
+                                            ) : (
+                                                'none'
+                                            )}
                                         </td>
                                     </tr>
                                     <tr>

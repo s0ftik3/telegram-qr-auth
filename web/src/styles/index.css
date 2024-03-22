@@ -17,14 +17,16 @@ body {
 .profile-photo {
     width: 256px;
     border-radius: 10px;
-    margin-right: 20px;
 }
 
 .user-info {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 256px);
+    gap: 20px;
     justify-content: center;
-    width: 100%;
-    margin: 10px 0 10px 0;
+    align-items: center;
+    width: auto;
+    margin: 10px 0;
 }
 
 .user-info table {
@@ -32,13 +34,14 @@ body {
     overflow: hidden;
     border-radius: 10px;
     border-style: hidden;
-    box-shadow: 0 0 0 0.5px #dee2e6;
+    box-shadow: 0 0 0 1px #dee2e6;
     min-width: 256px;
+    min-height: 256px;
 }
 
 .user-info th,
 .user-info td {
-    border: 0.5px solid #dee2e6;
+    border: 1px solid #dee2e6;
     padding: 8px;
     text-align: left;
 }
@@ -70,7 +73,7 @@ body {
 
 .empty {
     color: #c4c4c4;
-    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .premium-star {
@@ -79,4 +82,15 @@ body {
 
 .premium-star:hover {
     transform: rotate(360deg);
+}
+
+.username {
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .user-info {
+        grid-template-columns: none;
+        grid-template-rows: auto auto;
+    }
 }
