@@ -8,7 +8,7 @@ export const handleDecline = async ctx => {
     await ctx.answerCbQuery()
 
     await ctx.editMessageText(
-        toHTML(ctx.update.callback_query.message) + '\n\n' + 'Declined ❌',
+        toHTML(ctx.update.callback_query.message) + '\n\n' + '❌ Declined',
         {
             parse_mode: 'HTML',
         }

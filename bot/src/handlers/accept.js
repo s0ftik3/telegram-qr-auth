@@ -31,7 +31,7 @@ export const handleAccept = async ctx => {
     if (ctx.socket.sockets.sockets.has(socketId)) {
         ctx.socket.sockets.to(socketId).emit('auth-accept', data)
         await ctx.editMessageText(
-            toHTML(ctx.update.callback_query.message) + '\n\n' + 'Accepted ✅',
+            toHTML(ctx.update.callback_query.message) + '\n\n' + '✅ Accepted',
             {
                 parse_mode: 'HTML',
             }

@@ -51,9 +51,10 @@ export const handleStart = async ctx => {
         }\n<b>Location:</b> ${
             location.country && location.timezone
                 ? `${location.country}, ${location.timezone}` +
-                  (location.city ? ', ' + location.city : '')
+                  (location.city ? ', ' + location.city : '') +
+                  ` (IP = ${browserData.ip_address})`
                 : 'unknown'
-        } (IP = ${browserData.ip_address})`,
+        }`,
         Keyboard.make(
             [
                 Key.callback('❌ Decline', 'decline'),
