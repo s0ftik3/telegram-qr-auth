@@ -29,6 +29,11 @@ body {
     margin: 10px 0;
 }
 
+.user-info.without-avatar {
+    display: grid;
+    grid-template-columns: 512px;
+}
+
 .user-info table {
     border-collapse: collapse;
     overflow: hidden;

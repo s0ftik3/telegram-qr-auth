@@ -32,7 +32,14 @@ export const Authenticated = ({ user }: { user: any }) => {
                 </Row>
                 <Row>
                     <Col>
-                        <div class="user-info">
+                        <div
+                            class={
+                                'user-info' +
+                                (!user.profile_photo_base64
+                                    ? ' without-avatar'
+                                    : '')
+                            }
+                        >
                             <Show when={user.profile_photo_base64}>
                                 <img
                                     class="profile-photo"
