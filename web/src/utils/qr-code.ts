@@ -8,7 +8,7 @@ export const initQrCode = (): QRCodeStyling => {
         type: 'svg',
         image: telegramLogo,
         imageOptions: {
-            imageSize: 0.5,
+            imageSize: 0.8,
             margin: 5,
         },
         qrOptions: {
@@ -19,7 +19,7 @@ export const initQrCode = (): QRCodeStyling => {
         },
         cornersSquareOptions: {
             type: 'extra-rounded',
-            color: '#1b93c9',
+            // color: '#1b93c9',
         },
         dotsOptions: {
             color: '#22A9E9',

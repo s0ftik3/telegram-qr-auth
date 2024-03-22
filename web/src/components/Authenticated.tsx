@@ -1,5 +1,7 @@
 import { Button, Col, Container, Row, Stack } from 'solid-bootstrap'
 import { Show } from 'solid-js'
+import { dynamicGreeting } from '~/utils/greeting'
+import telegramPremium from '../assets/telegram-premium.png'
 
 export const Authenticated = ({ user }: { user: any }) => {
     const onSignOutClick = () => {
@@ -10,40 +12,76 @@ export const Authenticated = ({ user }: { user: any }) => {
     return (
         <Container class="centered">
             <Stack gap={3}>
-                <Show when={user.profile_photo_base64}>
-                    <Row>
-                        <Col>
-                            <img
-                                class="profile-photo"
-                                alt="avatar"
-                                src={user.profile_photo_base64}
-                            />
-                        </Col>
-                    </Row>
-                </Show>
                 <Row>
                     <Col>
                         <h3>
-                            Hello, <strong>{user.first_name}</strong>!
+                            {dynamicGreeting()},{' '}
+                            <strong>{user.first_name}</strong>{' '}
+                            {user.is_premium ? (
+                                <img
+                                    class="premium-star"
+                                    alt="premium"
+                                    src={telegramPremium}
+                                    width="24"
+                                />
+                            ) : (
+                                ''
+                            )}
                         </h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div class="user-info">
-                            <p class="text-muted">
-                                ID: <mark>{user.id}</mark>
-                                <br />
-                                First Name: <mark>{user.first_name}</mark>
-                                <br />
-                                Last Name:{' '}
-                                <mark>{user.last_name || 'none'}</mark>
-                                <br />
-                                Username: <mark>{user.username || 'none'}</mark>
-                                <br />
-                                Language: <mark>{user.language_code}</mark>
-                                <br />
-                            </p>
+                            <Show when={user.profile_photo_base64}>
+                                <img
+                                    class="profile-photo"
+                                    alt="avatar"
+                                    src={user.profile_photo_base64}
+                                />
+                            </Show>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>{user.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{user.first_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <td
+                                            class={
+                                                user.last_name ? '' : 'empty'
+                                            }
+                                        >
+                                            {user.last_name || 'none'}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Username</th>
+                                        <td
+                                            class={user.username ? '' : 'empty'}
+                                        >
+                                            {user.username || 'none'}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Language</th>
+                                        <td
+                                            class={
+                                                user.language_code
+                                                    ? ''
+                                                    : 'empty'
+                                            }
+                                        >
+                                            {user.language_code || 'unknown'}
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </Col>
                 </Row>

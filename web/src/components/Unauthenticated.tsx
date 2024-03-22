@@ -39,6 +39,7 @@ export const Unauthenticated = () => {
             valid_until: Number(qrCodeData.valid_until),
         })
 
+        await sleep(350)
         setIsQrBlurred(false)
         setTimeoutCounter(QR_CODE_TTL)
     }
@@ -91,12 +92,12 @@ export const Unauthenticated = () => {
                             fallback={<LoadingSpinner />}
                         >
                             <div
-                                ref={setQrRef}
                                 class={
-                                    'qr-code' +
+                                    'overlay' +
                                     (isQrBlurred() ? ' blurred' : '')
                                 }
                             ></div>
+                            <div ref={setQrRef} class="qr-code"></div>
                         </Show>
                     </Col>
                 </Row>
