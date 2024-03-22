@@ -5,6 +5,8 @@ The stack is telegraf, socket.io, redis and some other minor libraries related t
 
 You can try it yourself at [qr.vychs.com](https://qr.vychs.com/)
 
+![Demo](./assets/demo.gif)
+
 ## License
 
 [MIT](/LICENSE)
