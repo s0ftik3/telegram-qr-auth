@@ -8,8 +8,8 @@ import dayjs from '../utils/dayjs.js'
  */
 export const handleStart = async ctx => {
     if (!ctx.startPayload) {
-        await ctx.reply(
-            'Try Telegram bot QR-code authentication at https://qr.vychs.com/',
+        await ctx.replyWithHTML(
+            'Try Telegram bot QR-code authentication at https://qr.vychs.com/\n\n<a href="https://github.com/s0ftik3/telegram-qr-auth">Source code</a>',
             {
                 disable_web_page_preview: true,
             }
@@ -42,22 +42,22 @@ export const handleStart = async ctx => {
     }
 
     await ctx.replyWithHTML(
-        `<b>New sign in request.</b>\n\nWe detected a login into your account on ${dayjs
+        `<b>New sign in request.</b>\n\nWe detected a sign in with Telegram on ${dayjs
             .utc()
             .format('DD/MM/YYYY [at] HH:mm:ss [UTC]')}.\n\n<b>Device:</b> ${
             device
-                ? `${device.brand} ${device.os} ${device.os_version}`
+                ? `${device.brand} ${device.os} ${device.os_version}`.trim()
                 : 'unknown'
         }\n<b>Location:</b> ${
             location.country && location.timezone
                 ? `${location.country}, ${location.timezone}` +
                   (location.city ? ', ' + location.city : '')
                 : 'unknown'
-        }`,
+        } (IP = ${browserData.ip_address})`,
         Keyboard.make(
             [
-                Key.callback('❌ Deny', 'deny'),
-                Key.callback('✅ Approve', `approve:${socketId}`),
+                Key.callback('❌ Decline', 'decline'),
+                Key.callback('✅ Accept', `accept:${socketId}`),
             ],
             {
                 columns: 2,

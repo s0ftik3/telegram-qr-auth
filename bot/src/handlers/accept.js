@@ -5,7 +5,7 @@ import { downloadPhotoAsBase64 } from '../utils/download-base64.js'
  * @param ctx
  * @returns {Promise<void>}
  */
-export const handleApprove = async ctx => {
+export const handleAccept = async ctx => {
     await ctx.answerCbQuery()
 
     const socketId = ctx.match[0].split(':')[1]
@@ -29,9 +29,9 @@ export const handleApprove = async ctx => {
     }
 
     if (ctx.socket.sockets.sockets.has(socketId)) {
-        ctx.socket.sockets.to(socketId).emit('auth-approve', data)
+        ctx.socket.sockets.to(socketId).emit('auth-accept', data)
         await ctx.editMessageText(
-            toHTML(ctx.update.callback_query.message) + '\n\n' + 'Approved ✅',
+            toHTML(ctx.update.callback_query.message) + '\n\n' + 'Accepted ✅',
             {
                 parse_mode: 'HTML',
             }

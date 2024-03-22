@@ -1,8 +1,8 @@
 import { Composer, Telegraf } from 'telegraf'
 
-import { handleApprove } from '../handlers/approve.js'
+import { handleAccept } from '../handlers/accept.js'
 import { handleCallback } from '../handlers/callback.js'
-import { handleDeny } from '../handlers/deny.js'
+import { handleDecline } from '../handlers/decline.js'
 import { handleStart } from '../handlers/start.js'
 import { isCommand } from '../utils/is-command.js'
 
@@ -40,8 +40,8 @@ export class Bot {
 
         this.telegraf.start(handleStart)
 
-        this.telegraf.action('deny', handleDeny)
-        this.telegraf.action(/approve:(.*)/, handleApprove)
+        this.telegraf.action('decline', handleDecline)
+        this.telegraf.action(/accept:(.*)/, handleAccept)
 
         this.telegraf.on('callback_query', handleCallback)
 

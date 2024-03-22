@@ -59,7 +59,7 @@ export const Unauthenticated = () => {
             qrCode()?.append(qrRef())
         })
 
-        socket.on('auth-approve', async user => {
+        socket.on('auth-accept', async user => {
             setShowSignInProcess(true)
             setShowLoader(true)
             await sleep(300) // emulate sign in process
